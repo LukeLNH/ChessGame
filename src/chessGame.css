@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+}
+
+.gameScreen{
+    display: block;
+    position: relative;
+}
+
+.opponentIndicatorWrapper,
+.selfIndicatorWrapper {
+    text-align: center;
+    
+}
+
+
+
+.opponentIndicator,
+.selfIndicator {
+    display: inline-block;
+    height: 5vh;
+    width: 30vw;
+    margin: 2vh 0 2vh 0;
+    border: 2px black solid;
+
+}
+
+.board {
+    display: flex;
+    justify-content: center;
+    text-align: center;   
+}
+
+.leftBoardPanel,
+.rightBoardPanel {
+    border: black solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.centerBoardPanel {
+    display: inline-block;
+}
