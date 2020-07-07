@@ -7,6 +7,6 @@ function App() {
   return (
     <ChessGame />
   );
-}
+} 
 
 export default App;
