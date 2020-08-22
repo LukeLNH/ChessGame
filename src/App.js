@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-// import ChessGame from './chessGame/ChessGame.jsx'
-import ChessGame from './ChessGame.jsx'
+import ChessGame from './chessGame/ChessGame.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { HashRouter, BrowserRouter, Route } from 'react-router-dom';
 function App() {
   return (
     <ChessGame />

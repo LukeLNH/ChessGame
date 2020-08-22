@@ -3,8 +3,9 @@ body {
 }
 
 .gameScreen{
-    display: block;
     position: relative;
+    justify-content: space-evenly;
+
 }
 
 .opponentIndicatorWrapper,
@@ -27,8 +28,9 @@ body {
 
 .board {
     display: flex;
-    justify-content: center;
-    text-align: center;   
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;   
 }
 
 .leftBoardPanel,
@@ -37,8 +39,27 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
 }
 
 .centerBoardPanel {
     display: inline-block;
+}
+
+.welcomeScreen{
+    display: flex;
+    flex-direction: column;
+    justify-content : center;
+    align-items: center;
+
+    color: white;
+    font-size: 4rem;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: rgba(0, 0, 0, 0.7);
 }
