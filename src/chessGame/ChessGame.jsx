@@ -54,7 +54,7 @@ export default class ChessGame extends React.Component {
         return(
             <>
             <div className = "welcomeScreen" style = {{display: welcomeDisplay}}>
-                <p> Welcome to Luke's Chess App :D </p>
+                <p> Welcome! :D </p>
                 <Button variant = "dark" size = "lg" className = "againstStockFIsh"> 
                 {/* onClick = {() => {this.newGame(true)}}  */}
                     Play Against StockFish Engine AI (Coming soon)
@@ -67,6 +67,7 @@ export default class ChessGame extends React.Component {
                 </Button>
 
             </div>
+
 
             <div className = "gameScreen" style = {{display: showBoard}}>
                 <div className = "leftBoardPanel">
