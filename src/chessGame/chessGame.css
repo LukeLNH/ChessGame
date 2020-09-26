@@ -8,6 +8,11 @@ body {
 
 }
 
+.leftBoardPanel,
+.rightBoardPanel {
+    border: none !important;
+}
+
 .opponentIndicatorWrapper,
 .selfIndicatorWrapper {
     text-align: center;

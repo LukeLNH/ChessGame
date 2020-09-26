@@ -30,12 +30,6 @@ export default class ChessGame extends React.Component {
         this.setState({welcomeDisplay: true});
     }
 
-    // componentDidUpdate() {
-    //     if (this.chess.game_over()) {
-    //         this.setState({gameOverDisplay: true});
-    //     }
-    // }
-
     //code to locate square that a piece is on from https://github.com/jhlywa/chess.js/issues/174
     get_piece_positions = (piece) => {
         return [].concat(...this.chess.board()).map((p, index) => {
@@ -76,13 +70,14 @@ export default class ChessGame extends React.Component {
 
             <div className = "gameScreen" style = {{display: showBoard}}>
                 <div className = "leftBoardPanel">
-                            <Button variant = "dark" size = "lg" className = "undoButton">Undo Move</Button>
-                            <Button variant = "dark" size = "lg" className = "newGameButton">New Game</Button>
-                            <DropdownButton variant = "dark" size = "lg" id = "changeBoardStyle" title = "Change Board Style">
+                            <Button variant = "dark" size = "lg" className = "undoButton" onClick = {this.undoMove}>Undo Move</Button>
+                            <Button variant = "dark" size = "lg" className = "resetBoardButton" onClick = {() => {this.newGame(false)}}>Reset Board</Button>
+                            <Button variant = "dark" size = "lg" className = "newGameButton" onClick = {this.displayHomeScreen}>Home</Button>
+                            {/* <DropdownButton variant = "dark" size = "lg" id = "changeBoardStyle" title = "Change Board Style (Coming Soon)">
                                 <Dropdown.Item> style 1 </Dropdown.Item>
                                 <Dropdown.Item> style 2 </Dropdown.Item>
                                 <Dropdown.Item> style 3 </Dropdown.Item> 
-                            </DropdownButton>
+                            </DropdownButton> */}
                 </div>
 
                 <div className = "board">
@@ -99,6 +94,7 @@ export default class ChessGame extends React.Component {
                             calcWidth = {this.calcWidth}
                             squareStyles = {this.state.squareStyles}
                             onSquareClick = {this.onSquareClick}
+                            undo = {this.undoCopy}
                         />
                     </div>
                     
@@ -129,10 +125,6 @@ export default class ChessGame extends React.Component {
                     </Table>
                 </div>
 
-                <div className = "gameButtons">
-                {// Reset + undo button + change styles dropdown
-                }
-                </div>
              </div>
              </>
         )
@@ -141,12 +133,32 @@ export default class ChessGame extends React.Component {
     boardStyle = {
         display: "inline-block",
         boxShadow: '0.5vw 1vh 3vw rgba(0,0,0,0.5)',
-        margin: '0 auto 0 auto', //align the board in the center of the screen
-        
+        margin: '0 auto 0 auto', //align the board in the center of the screen  
     }
 
     sidePanelStyles = {
+    }
 
+    undoMove = () => {
+      this.chess.undo();
+      let newSquareStyles = this.updateInCheckStyles();
+
+      let blackHistory = [...this.state.blackHistory];
+      let whiteHistory = [...this.state.whiteHistory];
+      
+      if (this.chess.turn() === "b") { //currently black's turn to move, i.e we just undid black's move
+        blackHistory.pop();
+      } else {
+        whiteHistory.pop();
+      }
+
+      this.setState({
+        currentState: this.chess.fen(),
+        squareStyles: newSquareStyles,
+        gameOverDisplay: this.chess.game_over(),
+        blackHistory: blackHistory,
+        whiteHistory: whiteHistory
+      });
     }
 
     prepareHistory = () => {
@@ -170,7 +182,17 @@ export default class ChessGame extends React.Component {
     newGame = againstAI => {
         this.chess = new Chess();
         this.previousClickedSqure = "";
-        this.setState({currentState: this.chess.fen(), welcomeDisplay: false, againstAI: againstAI});
+        this.setState({
+          currentState: this.chess.fen(), 
+          welcomeDisplay: false, 
+          againstAI: againstAI,
+          whiteHistory: [],
+          blackHistory: []
+        });
+    }
+
+    displayHomeScreen = () => {
+      this.setState({welcomeDisplay: true});
     }
 
     updateInCheckStyles() {
